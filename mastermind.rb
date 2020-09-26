@@ -3,21 +3,27 @@ class Game
   def initialize
     @colors = %w[r o y g b i]
     @random_code = @colors.shuffle
-    @com_code = @random_code.slice(0, 4)
+    @code = @random_code.slice(0, 4)
   end
 end
 
 class Player < Game
   attr_reader :array
-  def initialize
-    super()
+  def initialize(choice)
+    @choice = choice
+    if @choice == 'creator'
+      str = gets.chomp
+      @code = str.split(' ')
+    else
+      super()
+    end
     @turns = 12
   end
 
   def guess(str)
     @array = str.split(' ')
-    if @array == @com_code
-      puts "You guessed the code: #{@com_code}"
+    if @array == @code
+      puts "You guessed the code: #{@code}"
       reset
     else
       check_code
@@ -29,8 +35,8 @@ class Player < Game
   def check_code
     i = 0
     while i < 4
-      if @com_code.include?(@array[i])
-        if @array[i] == @com_code[i]
+      if @code.include?(@array[i])
+        if @array[i] == @code[i]
           puts "#{@array[i]} is correct and well placed"
         else
           puts "#{@array[i]} is correct but placed wrong"
@@ -52,6 +58,6 @@ class Player < Game
   def reset
     @turns = 12
     @random_code = @colors.shuffle
-    @com_code = @random_code.slice(0, 4)
+    @code = @random_code.slice(0, 4)
   end
 end
