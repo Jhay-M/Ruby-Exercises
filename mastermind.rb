@@ -11,13 +11,14 @@ class Player < Game
   attr_reader :array
   def initialize(choice)
     @choice = choice
-    if @choice == 'creator'
+    if @choice == 'create'
       str = gets.chomp
       @code = str.split(' ')
+      com_guess
     else
       super()
     end
-    @turns = 12
+    @turns = 5
   end
 
   def guess(str)
@@ -48,7 +49,34 @@ class Player < Game
     end
   end
 
+  def com_guess
+    @colors = %w[r o y g b i]
+    @random_code = @colors.shuffle
+    @com_code = @random_code.slice(0, 4)
+    @turns = 5
+    puts "Computer guessed #{@com_code}"
+    com_guess_check
+  end
+
+  def com_guess_check
+    if @com_code == @code
+      puts 'Computer Wins!'
+    else
+      com_guess_logic
+    end
+  end
+
+  def com_guess_logic
+    i = 0
+    while i < 4
+      if @code.include?(@com_code[i])
+      end
+      i += 1
+    end
+  end
+
   def turn_check
+    puts "#{@turns} tries left"
     if @turns.zero?
       reset
       'Game Over'
@@ -56,7 +84,7 @@ class Player < Game
   end
 
   def reset
-    @turns = 12
+    @turns = 5
     @random_code = @colors.shuffle
     @code = @random_code.slice(0, 4)
   end
