@@ -37,11 +37,7 @@ class Player < Game
     i = 0
     while i < 4
       if @code.include?(@array[i])
-        if @array[i] == @code[i]
-          puts "#{@array[i]} is correct and well placed"
-        else
-          puts "#{@array[i]} is correct but placed wrong"
-        end
+        @array[i] == @code[i] ? "#{@array[i]} is correct and well placed" : "#{@array[i]} is correct but placed wrong"
       else
         puts "#{@array[i]} is incorrect"
       end
@@ -67,12 +63,7 @@ class Player < Game
   end
 
   def com_guess_logic
-    i = 0
-    while i < 4
-      if @code.include?(@com_code[i])
-      end
-      i += 1
-    end
+    
   end
 
   def turn_check
