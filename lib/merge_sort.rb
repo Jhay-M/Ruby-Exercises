@@ -16,4 +16,4 @@ def merge(left, right)
   left[0] < right[0] ? [left[0]] + merge(left[1..-1], right) : [right[0]] + merge(left, right[1..-1])
 end
 
-msort([3, 6, 4, 1, 2, 7, 5, 8])
+msort([1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48])
