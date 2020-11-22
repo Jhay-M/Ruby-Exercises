@@ -1,33 +1,27 @@
-require 'pry'
-
 def caesar_cipher(str, num)
   result = []
 
   split_string = str.split('')
-  mapped_string = split_string.map do |item|
-    lower = Array("a".."z")
-    upper = Array("A".."Z")
+  split_string.map do |item|
+    lower = Array('a'..'z')
+    upper = Array('A'..'Z')
+    number = Array('0'..'9')
 
     if lower.include?(item) == true
       sum = lower.index(item) + num
-      if sum > 25
-        sum %= 26
-      end
-      result.push(lower[sum])
+      sum %= 26 if sum > 25
+      result << lower[sum]
     elsif upper.include?(item) == true
       sum = upper.index(item) + num
-      if sum > 25
-        sum = sum % 26
-      else 
-        sum = sum
-      end
-      result.push(upper[sum])
-    else 
-      result.push(item)
+      sum = sum > 25 ? sum % 26 : sum
+      result << upper[sum]
+    elsif number.include?(item)
+      result << item.to_i + num
+    else
+      result << item
     end
   end
-  final_string = result.join('')
-  return final_string
+  result.join('')
 end
 
-caesar_cipher("What a string!", 5)
+p caesar_cipher('What a string2!', 5)
