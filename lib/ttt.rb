@@ -1,6 +1,9 @@
 # frozen_string_literal: true
+
 # Tic-tac-toe game
 class Game
+  attr_reader :win_con
+
   @map = Array.new(9, '-')
 
   class << self
@@ -19,7 +22,7 @@ end
 
 # Player class to play game
 class Player < Game
-  attr_accessor :map, :choices
+  attr_accessor :id, :choices
   attr_reader :wins
 
   def initialize(id)
@@ -29,23 +32,27 @@ class Player < Game
     @wins = 0
   end
 
+  def map
+    Game.map
+  end
+
   def play(num)
-    @choices = [] if Game.map.include?(@id) == false && @choices != []
-    Game.map[num - 1] = @id
-    @choices.push(num)
+    @choices = [] if map.include?(id) == false && choices != []
+    map[num - 1] = id
+    choices.push(num)
     Game.printm
-    check_win if @choices.size > 2
+    check_win if choices.size > 2
   end
 
   def check_win
-    @win_con.each do |arr|
-      if arr.all? { |cell| @choices.include?(cell) } == true
-        Game.map = Array.new(9, '-')
-        @wins += 1
-        return "#{@id} Won!"
-      else
-        next
-      end
+    win_con.each do |arr|
+      arr.all? { |cell| choices.include?(cell) } ? game_over : next
     end
+  end
+
+  def game_over
+    self.map = Array.new(9, '-')
+    @wins += 1
+    "#{id} Won!"
   end
 end
